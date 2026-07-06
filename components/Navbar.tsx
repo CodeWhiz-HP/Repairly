@@ -22,43 +22,40 @@ export const Navbar: React.FC = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/">
-            <div 
-            className="flex items-center gap-2 cursor-pointer" 
-          >
-            <div className="w-8 h-8 bg-electricAqua rounded-sm flex items-center justify-center">
-              <Wrench className="w-5 h-5 text-deepCarbon" />
+            <div
+              className="flex items-center gap-2 cursor-pointer"
+            >
+              <div className="w-8 h-8 bg-electricAqua rounded-sm flex items-center justify-center">
+                <Wrench className="w-5 h-5 text-deepCarbon" />
+              </div>
+              <span className="font-display font-bold text-xl text-white tracking-tight">
+                Repair<span className="text-electricAqua">Ly</span>
+              </span>
             </div>
-            <span className="font-display font-bold text-xl text-white tracking-tight">
-              Repair<span className="text-electricAqua">Ly</span>
-            </span>
-          </div>
           </Link>
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-6">
             <Link href="/Browse/All">
-             <button 
-              className={`text-sm hover:text-electricAqua hover:cursor-pointer transition-colors ${pathName === '/Browse' ? 'text-electricAqua' : 'text-softGray'}`}
-            >
-              Browse
-            </button>
+              <button
+                className={`text-sm hover:text-electricAqua hover:cursor-pointer transition-colors ${pathName === '/Browse' ? 'text-electricAqua' : 'text-softGray'}`}
+              >
+                Browse
+              </button>
             </Link>
-            
+
             {!session ? (
               <div className="flex gap-3">
-                 <Button variant="outline" size="sm">
-                   Vendor Access
-                 </Button>
-                 <Link href="/sign-in">
+                <Link href="/sign-in">
                   <Button size="sm">
-                   Login / Sign Up
-                 </Button>
-                 </Link>
+                    Login / Sign Up
+                  </Button>
+                </Link>
               </div>
             ) : (
               <div className="flex items-center gap-4">
                 <Link href={dashboardHref}>
-                  <button 
+                  <button
                     className={`flex items-center gap-2 text-sm hover:text-electricAqua transition-colors ${pathName === dashboardHref ? 'text-electricAqua' : 'text-softGray'}`}
                   >
                     {dashboardIcon === BarChart3 ? (
@@ -78,7 +75,7 @@ export const Navbar: React.FC = () => {
                     {displayName}
                   </span>
                 </Link>
-                <button 
+                <button
                   onClick={() => signOut({ callbackUrl: '/' })}
                   className="text-softGray hover:text-errorRed transition-colors"
                   title="Logout"
