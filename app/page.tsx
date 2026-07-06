@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Button } from "../components/Button";
 import { ArrowRight, CheckCircle2, Clock, Search, ShieldCheck } from "lucide-react";
-import { CATEGORIES } from "@/types/constants";
+import { CATEGORIES } from "@/lib/constants";
 
 export default function Home() {
   return (

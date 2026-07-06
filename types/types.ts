@@ -5,11 +5,14 @@ export interface User {
   name: string;
   email: string;
   role: UserRole;
+  businessName?: string | null;
   avatarUrl?: string;
 }
 
 export interface Technician {
-  id: string;
+  id?: string;
+  avatar?: string;
+  key: string;
   name: string;
   businessName: string;
   rating: number; // 0-5
@@ -23,16 +26,16 @@ export interface Technician {
   completedRepairs: number;
 }
 
-export type OrderStatus = 
-  | 'placed' 
-  | 'accepted' 
-  | 'pickup_scheduled' 
-  | 'picked_up' 
-  | 'repairing' 
-  | 'qa_check' 
-  | 'ready_return' 
-  | 'out_for_delivery' 
-  | 'delivered' 
+export type OrderStatus =
+  | 'placed'
+  | 'accepted'
+  | 'pickup_scheduled'
+  | 'picked_up'
+  | 'repairing'
+  | 'qa_check'
+  | 'ready_return'
+  | 'out_for_delivery'
+  | 'delivered'
   | 'completed';
 
 export interface Order {
@@ -56,6 +59,18 @@ export interface Review {
   rating: number;
   comment: string;
   date: string;
+}
+
+export interface RepairRequest {
+  id: string;
+  customerName: string;
+  customerEmail: string;
+  technicianId: string;
+  deviceModel: string;
+  issueDescription: string;
+  requestedDate: string;
+  estimatedBudget: number;
+  status: 'pending' | 'accepted' | 'rejected';
 }
 
 export const ORDER_STEPS = [

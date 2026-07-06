@@ -3,9 +3,13 @@ import { Button } from '@/components/Button'
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react'
 import Link from 'next/link'
 import React, { useState } from 'react'
+import { signIn } from 'next-auth/react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { toast } from "sonner"
 
 const SignInPage = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -17,25 +21,33 @@ const SignInPage = () => {
       setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
- const handleSubmit = (e: React.FormEvent) => {
-  e.preventDefault();
-  setLoading(true);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
 
-  login(formData).then((res:any) => {
+    try {
+      const result = await signIn('credentials', {
+        email: formData.email,
+        password: formData.password,
+        redirect: false,
+      });
 
-    if ("errors" in res) {
-    //   const emailError = res.properties?.email?.errors?.[0];
-    //   const passwordError = res.properties?.password?.errors?.[0];
+      if (result?.error) {
+        toast.error(result.error || 'Invalid email or password', { duration: 4000 });
+        setLoading(false);
+        return;
+      }
 
-    //   toast.error(emailError || passwordError, {duration:4000});
-      return;
+      if (result?.ok) {
+        toast.success('You have Signed In Successfully!!', { duration: 2000 });
+        const callbackUrl = searchParams.get('callbackUrl') || '/';
+        router.push(callbackUrl);
+      }
+    } catch (error: any) {
+      toast.error(error.message || 'An error occurred during sign in', { duration: 4000 });
+      setLoading(false);
     }
-    toast.success("You have Signed In Successfully!!",{duration:2000});
-    
-  }).then(() => {
-    setLoading(false);
-  });
-};
+  };
 
   return (
      <div className='min-h-screen w-full bg-deepCarbon flex justify-center items-center p-4'>

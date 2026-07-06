@@ -1,4 +1,4 @@
-import { Technician, Order, Review } from './types';
+import { Technician, Order, Review, RepairRequest } from '@/types/types';
 
 export const CATEGORIES = [
   { id: 'phone', label: 'Smartphones', icon: 'Smartphone' },
@@ -11,7 +11,7 @@ export const CATEGORIES = [
 
 export const MOCK_TECHNICIANS: Technician[] = [
   {
-    id: 't1',
+    key: 't1',
     name: 'Alex Chen',
     businessName: 'CyberFix Labs',
     rating: 4.9,
@@ -25,7 +25,7 @@ export const MOCK_TECHNICIANS: Technician[] = [
     completedRepairs: 450
   },
   {
-    id: 't2',
+    key: 't2',
     name: 'Sarah Jones',
     businessName: 'Rapid Repair Hub',
     rating: 4.6,
@@ -39,7 +39,7 @@ export const MOCK_TECHNICIANS: Technician[] = [
     completedRepairs: 210
   },
   {
-    id: 't3',
+    key: 't3',
     name: 'Mike Ross',
     businessName: 'Budget Fixers',
     rating: 4.2,
@@ -53,7 +53,7 @@ export const MOCK_TECHNICIANS: Technician[] = [
     completedRepairs: 1100
   },
   {
-    id: 't4',
+    key: 't4',
     name: 'Elena Wu',
     businessName: 'Elite Tech Care',
     rating: 5.0,
@@ -113,4 +113,51 @@ export const MOCK_REVIEWS: Review[] = [
     comment: 'Good work, but pickup was slightly delayed.',
     date: '2023-09-28'
   }
+];
+
+export const MOCK_REPAIR_REQUESTS: RepairRequest[] = [
+  {
+    id: 'req-201',
+    customerName: 'Arjun Mehta',
+    customerEmail: 'arjun@example.com',
+    technicianId: 't1',
+    deviceModel: 'iPhone 14 Pro',
+    issueDescription: 'Back glass cracked after a drop. Needs screen check too.',
+    requestedDate: '2026-07-03T09:15:00Z',
+    estimatedBudget: 95,
+    status: 'pending',
+  },
+  {
+    id: 'req-202',
+    customerName: 'Neha Sharma',
+    customerEmail: 'neha@example.com',
+    technicianId: 't1',
+    deviceModel: 'MacBook Air M2',
+    issueDescription: 'Laptop not charging consistently and fan noise is high.',
+    requestedDate: '2026-07-03T11:40:00Z',
+    estimatedBudget: 130,
+    status: 'pending',
+  },
+  {
+    id: 'req-203',
+    customerName: 'Rahul Singh',
+    customerEmail: 'rahul@example.com',
+    technicianId: 't2',
+    deviceModel: 'PlayStation 5',
+    issueDescription: 'HDMI output keeps cutting out during gameplay.',
+    requestedDate: '2026-07-02T16:20:00Z',
+    estimatedBudget: 80,
+    status: 'accepted',
+  },
+  {
+    id: 'req-204',
+    customerName: 'Pooja Verma',
+    customerEmail: 'pooja@example.com',
+    technicianId: 't3',
+    deviceModel: 'Samsung Galaxy S23',
+    issueDescription: 'Water exposure. Phone powers on intermittently.',
+    requestedDate: '2026-07-02T18:05:00Z',
+    estimatedBudget: 60,
+    status: 'rejected',
+  },
 ];
