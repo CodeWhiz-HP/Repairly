@@ -40,7 +40,15 @@ const SignInContent = () => {
 
             if (result?.ok) {
                 toast.success('You have Signed In Successfully!!', { duration: 2000 });
-                const callbackUrl = searchParams.get('callbackUrl') || '/';
+                let callbackUrl = searchParams.get('callbackUrl') || '/';
+                if (callbackUrl.startsWith('http://') || callbackUrl.startsWith('https://')) {
+                    try {
+                        const urlObj = new URL(callbackUrl);
+                        callbackUrl = urlObj.pathname + urlObj.search;
+                    } catch (e) {
+                        callbackUrl = '/';
+                    }
+                }
                 router.push(callbackUrl);
             }
         } catch (error: any) {
