@@ -1,5 +1,6 @@
 "use server";
 
+import mongoose from "mongoose";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import dbConnect from "@/lib/dbConnect";
@@ -72,6 +73,7 @@ export async function getDashboardStats() {
     }
 
     const technicianId = session.user.id;
+    const techObjectId = new mongoose.Types.ObjectId(technicianId);
 
     const [activeRepairs, completedRepairs, revenue, reviewStats] =
       await Promise.all([
@@ -92,7 +94,7 @@ export async function getDashboardStats() {
         RepairOrder.aggregate([
           {
             $match: {
-              technicianId,
+              technicianId: techObjectId,
               status: {
                 $in: ["completed", "delivered"],
               },
@@ -111,7 +113,7 @@ export async function getDashboardStats() {
         Review.aggregate([
           {
             $match: {
-              technicianId,
+              technicianId: techObjectId,
             },
           },
           {
@@ -175,6 +177,7 @@ export async function getRevenueData() {
     }
 
     const technicianId = session.user.id;
+    const techObjectId = new mongoose.Types.ObjectId(technicianId);
 
     const lastWeek = new Date();
     lastWeek.setDate(lastWeek.getDate() - 6);
@@ -183,7 +186,7 @@ export async function getRevenueData() {
     const revenue = await RepairOrder.aggregate([
       {
         $match: {
-          technicianId,
+          technicianId: techObjectId,
           status: {
             $in: ["completed", "delivered"],
           },
