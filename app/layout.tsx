@@ -6,8 +6,9 @@ import { NavbarWrapper } from "@/components/NavbarWrapper";
 import Footer from "@/components/Footer";
 import { Providers } from "./providers";
 import { cn } from "@/lib/utils";
+import { Analytics } from "@vercel/analytics/react"
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const geist = Geist({ subsets: ['latin'], variable: '--font-sans' });
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-display",
@@ -32,8 +33,9 @@ export default function RootLayout({
       <body className={`${geist.variable} ${spaceGrotesk.variable} relative antialiased bg-deepCarbon text-foreground`}>
         <Providers>
           <NavbarWrapper />
+          <Analytics />
           {children}
-          <Footer/>
+          <Footer />
           <Toaster position="top-center" />
         </Providers>
       </body>
